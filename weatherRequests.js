@@ -21,6 +21,7 @@ import { addCity } from "./workWithArray.js";
 
 //запрос для первого таба
 function cityNowRequest(event, currentCity, temperature, cityNameData) {
+  event.preventDefault();
   const cityName = cityNameData;
   const url = `${SERVER.SERVER_URL}?q=${cityName}&appid=${SERVER.API_KEY}&units=metric`;
 
@@ -35,6 +36,7 @@ function cityNowRequest(event, currentCity, temperature, cityNameData) {
 
 //запрос для 2го таба
 function cityDetailsRequest(event, cityNameData) {
+  event.preventDefault();
   const cityName = cityNameData;
   const url = `${SERVER.SERVER_URL}?q=${cityName}&appid=${SERVER.API_KEY}&units=metric`;
   const promise = fetch(url)
