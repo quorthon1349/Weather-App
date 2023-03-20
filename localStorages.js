@@ -36,4 +36,20 @@ function cityListStorage() {
   }
 }
 
-export { checkStorageNow, checkStorageDetails, cityListStorage, cityList };
+function checkStorageForecast() {
+  if (JSON.parse(localStorage.getItem("cityForecast")) !== null) {
+    return JSON.parse(localStorage.getItem("cityForecast"));
+  } else {
+    return;
+    // { responce:  };
+  }
+}
+
+export {
+  checkStorageNow,
+  checkStorageDetails,
+  cityListStorage,
+  cityList,
+  checkStorageForecast,
+};
+
