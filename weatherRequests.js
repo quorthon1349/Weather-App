@@ -14,6 +14,8 @@ import {
   renderDetails,
   cityDetailsStorage,
   render,
+  renderForecast,
+  cityForecastStorage,
 } from "./renders.js";
 
 import { cityList } from "./localStorages.js";
@@ -51,12 +53,28 @@ function cityDetailsRequest(event, cityNameData) {
         response.sys.sunset
       );
       console.log(response);
-    });
+    })
+    .catch((error) => alert(new Error(ERROR.TRY_AGAIN)));
 }
+//запрос для 3го таба
+function cityForecastRequest(event, cityNameData) {
+  event.preventDefault();
+  const cityName = cityNameData;
+  const urlForecast = `${SERVER.FORECAST_URL}?q=${cityName}&appid=${SERVER.API_KEY}&units=metric`;
+  const promise = fetch(urlForecast)
+    .then((response) => response.json())
+    .then((response) => {
+      renderForecast(response);
+      console.log(response);
+    })
+    .catch((error) => alert(new Error(ERROR.TRY_AGAIN)));
+}
+
 //отправка запросов
 form.addEventListener("submit", () => {
   cityNowRequest(event, favoriteCity, temp, enterCityField.value);
   cityDetailsRequest(event, enterCityField.value);
+  cityForecastRequest(event, enterCityField.value);
 });
 
 function addCityToFavorite() {
@@ -75,6 +93,7 @@ function requestFromFavoriteList(event) {
     if (cityList.findIndex((city) => city[name] === name)) {
       cityNowRequest(event, favoriteCity, temp, name);
       cityDetailsRequest(event, name);
+      cityForecastRequest(event, name);
     }
   }
 }
@@ -89,3 +108,5 @@ renderDetails(
   cityDetailsStorage.sunrise,
   cityDetailsStorage.sunset
 );
+renderForecast(cityForecastStorage.response);
+
