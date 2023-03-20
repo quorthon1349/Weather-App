@@ -12,6 +12,7 @@ const typeOfWeather = document.querySelector(".type-of-weather");
 const windSpeed = document.querySelector(".wind-speed");
 const sunriseTime = document.querySelector(".sunrise-time");
 const sunsetTime = document.querySelector(".sunset-time");
+//for 3rd request
 
 export {
   form,
@@ -27,3 +28,4 @@ export {
   sunriseTime,
   sunsetTime,
 };
+
