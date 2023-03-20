@@ -243,7 +243,7 @@ li {
   justify-content: space-between;
   padding-left: 10px;
   padding-right: 10px;
-  margin-bottom: 30px;
+  margin-top: 15px;
 }
 
 .date-and-time > p {
@@ -259,13 +259,16 @@ li {
 .main-details-about-weather {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
-.rain {
-  width: 31px;
-  height: 31px;
+.weather {
+  width: 50px;
+  height: 50px;
 }
+
 .downfall > p {
   margin-top: 0px;
   margin-bottom: 0px;
   padding-right: 10px;
 }
+
