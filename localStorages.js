@@ -19,6 +19,7 @@ function checkStorageDetails() {
     return JSON.parse(localStorage.getItem("cityDetails"));
   } else {
     return {
+      name: "None",
       temperature: 0,
       feelsLikeTemp: 0,
       weather: "None",
@@ -52,4 +53,3 @@ export {
   cityList,
   checkStorageForecast,
 };
-
