@@ -164,11 +164,14 @@ li {
   height: 355px;
   width: 298.5px;
   padding-left: 40px;
+  line-height: 45px;
 }
-.city {
-  margin-top: 30px;
-  font-size: 24px;
-  padding-left: 40px;
+.city-details-name,
+.city-forecast-name {
+  margin-top: 50px;
+  margin-left: 40px;
+  font-size: 20px;
+  text-decoration: underline;
 }
 /* RIGHT SECTION */
 .right-section {
@@ -189,8 +192,8 @@ li {
   cursor: default;
 }
 .info {
+  margin: 0px;
   font-size: 24px;
-  margin-bottom: 17px;
   list-style-type: none;
   cursor: default;
 }
@@ -271,4 +274,3 @@ li {
   margin-bottom: 0px;
   padding-right: 10px;
 }
-
