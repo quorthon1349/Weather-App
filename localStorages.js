@@ -42,7 +42,7 @@ function checkStorageForecast() {
     return JSON.parse(localStorage.getItem("cityForecast"));
   } else {
     return;
-    // { responce:  };
+    //  { responce: "" };
   }
 }
 
