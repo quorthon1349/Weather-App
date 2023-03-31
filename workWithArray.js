@@ -3,10 +3,6 @@ import { render } from "./renders.js";
 
 function addCity(city) {
   cityList.splice(0, 0, city);
-  // cityList.splice(0, 0, {
-  //   id: Date.now(),
-  //   name: city,
-  // });
 }
 
 //удаление из массива
