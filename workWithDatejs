@@ -62,5 +62,4 @@ function getData(e) {
   const min = "0" + new Date(e).getMinutes();
   return `${hours}:${min.substr(-2)}`; //substr???
 }
-
 export { timeAndDate, getData };
