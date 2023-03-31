@@ -27,13 +27,16 @@ function cityNowRequest(event, currentCity, temperature, cityNameData) {
   const cityName = cityNameData;
   const url = `${SERVER.SERVER_URL}?q=${cityName}&appid=${SERVER.API_KEY}&units=metric`;
 
-  //запрос для первого таба
   const promise = fetch(url)
     .then((response) => response.json())
     .then((response) => {
       renderNow(response.main.temp, response.name, response.weather[0].icon);
     })
-    .catch((error) => alert(new Error(ERROR.TRY_AGAIN)));
+    .catch((error) => alert(new Error(ERROR.TRY_AGAIN)))
+    .then(() => {
+      const input = document.querySelector(".search-field");
+      input.value = "";
+    });
 }
 
 //запрос для 2го таба
@@ -45,6 +48,7 @@ function cityDetailsRequest(event, cityNameData) {
     .then((response) => response.json())
     .then((response) => {
       renderDetails(
+        response.name,
         response.main.temp,
         response.main.feels_like,
         response.weather[0].main,
@@ -101,6 +105,7 @@ document.addEventListener("click", requestFromFavoriteList);
 
 renderNow(cityNowStorage.temperature, cityNowStorage.city, cityNowStorage.img);
 renderDetails(
+  cityDetailsStorage.name,
   cityDetailsStorage.temperature,
   cityDetailsStorage.feelsLikeTemp,
   cityDetailsStorage.weather,
@@ -109,4 +114,3 @@ renderDetails(
   cityDetailsStorage.sunset
 );
 renderForecast(cityForecastStorage.response);
-
