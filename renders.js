@@ -8,6 +8,8 @@ import {
   windSpeed,
   sunriseTime,
   sunsetTime,
+  cityDetailsName,
+  cityForecastName,
 } from "./constants.js";
 
 import {
@@ -17,6 +19,8 @@ import {
   cityListStorage,
   checkStorageForecast,
 } from "./localStorages.js";
+
+import { timeAndDate, getData } from "./workWithDate.js";
 
 let cityNowStorage = checkStorageNow();
 let cityDetailsStorage = checkStorageDetails();
@@ -33,6 +37,7 @@ function renderNow(temperature, city, img) {
 }
 
 function renderDetails(
+  name,
   temperature,
   feelsLikeTemp,
   weather,
@@ -40,6 +45,7 @@ function renderDetails(
   sunrise,
   sunset
 ) {
+  cityDetailsName.textContent = name;
   tempDetails.textContent = Math.round(temperature);
   feelsLikeTemperature.textContent = Math.round(feelsLikeTemp);
   typeOfWeather.textContent = weather;
@@ -47,6 +53,7 @@ function renderDetails(
   sunriseTime.textContent = getData(sunrise);
   sunsetTime.textContent = getData(sunset);
   cityDetailsStorage = {
+    name,
     temperature,
     feelsLikeTemp,
     weather,
@@ -56,20 +63,19 @@ function renderDetails(
   };
   localStorage.setItem("cityDetails", JSON.stringify(cityDetailsStorage));
 }
-//преобразование времени для заката и рассвета
-function getData(e) {
-  e = e * 1000;
-  return `${new Date(e).getHours()}:${new Date(e).getMinutes()}`;
-}
 
 function renderForecast(response) {
   const collector = document.querySelector(".more-weather-info-field");
   collector.textContent = "";
 
-  for (let item = 0; item < 5; item++) {
+  cityForecastName.textContent = response.city.name;
+
+  for (let item = 0; item < 9; item++) {
     const infoContainerHTML = `<div class="more-weather-info">
     <div class="date-and-time">
-      <p class="time-and-data">${response.list[item].dt_txt}</p>
+      <p class="time-and-data">${timeAndDate(
+        new Date(response.list[item].dt_txt)
+      )}</p>
     </div>
     <div class="main-details-about-weather">
       <div class="feels-like-and-temperature">
@@ -111,11 +117,12 @@ function render() {
   );
   deleteCitiesFromArray();
   cityList.forEach((city) => {
-    const cityHTML = `<li class="favorite-city" id="${city.id}"><span class="city-fav">${city.name}</span><button class="delete-fav-city"></button></li>`;
+    const cityHTML = `<li class="favorite-city" id="${city.id}"><span class="city-fav">${city}</span><button class="delete-fav-city"></button></li>`;
     favoriteCitiesCollection.insertAdjacentHTML("beforeend", cityHTML);
   });
   //createElements
-  localStorage.setItem("cityList", JSON.stringify(cityList));
+  let uniqCities = new Set(cityList);
+  localStorage.setItem("cityList", JSON.stringify([...uniqCities]));
 }
 //очистка для рендера
 function deleteCitiesFromArray() {
@@ -127,4 +134,3 @@ export { renderNow, cityNowStorage };
 export { cityDetailsStorage, renderDetails };
 export { render };
 export { renderForecast, cityForecastStorage };
-
